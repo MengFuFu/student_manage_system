@@ -12,5 +12,5 @@
 void show_menu();
 void add_student(Node* head);
 void modify_student(Node* head);
-void sort_students(Node* head);
+void sort_students(Node* head, int choice);
 void calculate_students(Node* head);

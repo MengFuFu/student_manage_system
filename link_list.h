@@ -23,3 +23,4 @@ Node* link_init();
 bool insert_node(Node* head, Student s);
 bool delete_node(Node* head, char* id);
 Node* search_student(Node* head, char* id);
+int count_students(Node *head);
