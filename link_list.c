@@ -39,10 +39,9 @@ bool insert_node(Node* head, Student s)
     newNode->data = s;
     head->next = newNode;
 
-    printf("添加成功--");
-    printf("%s  %s", s.name, s.id);
     return true;
 }
+
 //删除学生节点
 bool delete_node(Node* head, char* id)
 {
@@ -64,6 +63,7 @@ bool delete_node(Node* head, char* id)
     printf("查无此人，删除失败！");
     return false;
 }
+
 //查找学生节点
 Node* search_student(Node* head, char* id)
 {
@@ -84,25 +84,15 @@ Node* search_student(Node* head, char* id)
     printf("查无此人！");
     return NULL;
 }
-/*
-//修改学生节点
-bool modify_student(Node* head, char* id)
-{
-    Node* curNode = search_student(head, id);
-    if (curNode != NULL)
-    {
-        Student newData;
-        printf("请输入新的信息：\n");
-        printf("学号（id）：");
-        scanf("%s", newData.id);
-        printf("\n姓名（name）：");
-        scanf("%s", newData.name);
-        printf("\n成绩（score）：");
-        scanf("%d", &newData.score);
 
-        curNode->data = newData;
-        return true;
+//新增计数功能，实时记录学生数量
+int count_students(Node *head) {
+    int count = 0;
+    Node *p = head->next;
+    while (p != NULL) {
+        count++;
+        p = p->next;
     }
-    return false;
+
+    return count;
 }
-*/

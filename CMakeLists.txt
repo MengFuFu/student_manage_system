@@ -10,4 +10,6 @@ add_executable(student_manage_system main.c
         student_sys.h
         student_sys.c
         file_util.c
-        file_util.h)
+        file_util.h
+        user.c
+        user.h)
