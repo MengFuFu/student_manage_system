@@ -1,6 +1,9 @@
-cmake_minimum_required(VERSION 4.0)
-project(text C)
+cmake_minimum_required(VERSION 3.20)
 
-set(CMAKE_C_STANDARD 11)
+project(student_manage_system C)
 
-add_executable(text main.c)
+set(CMAKE_C_STANDARD 99)
+
+add_executable(student_manage_system main.c
+        link_list.h
+        link_list.c)
