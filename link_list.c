@@ -3,7 +3,6 @@
 //
 
 /*实现链表的基本功能-增删改查-*/
-
 #include "link_list.h"
 #include <stdbool.h>
 #include <stdio.h>
@@ -27,12 +26,17 @@ void printStudent(Node* p)
         return;;
     }
     printf("%s %s %s %d %d %d %d\n", p->data.id, p->data.name, p->data.classId, p->data.subjectScores[0],
-    p->data.subjectScores[1], p->data.subjectScores[2], p->data.totalScore);
+           p->data.subjectScores[1], p->data.subjectScores[2], p->data.totalScore);
 }
 
 //添加学生节点---插入节点
 bool insertNode(Node* head, Student s)
 {
+    s.totalScore = 0;
+    for (int i = 0; i < SUBJECT; i++)
+    {
+        s.totalScore += s.subjectScores[i];
+    }
     if (head == NULL)
     {
         printf("程序出错，请传入正确的头节点!");
@@ -57,7 +61,7 @@ bool insertNode(Node* head, Student s)
 bool deleteNode(Node* head, char* id)
 {
     Node* p = head;
-    while (p->next!= NULL)
+    while (p->next != NULL)
     {
         if (strcmp(p->next->data.id, id) == 0)
         {
@@ -76,7 +80,7 @@ bool deleteNode(Node* head, char* id)
 Node* searchStudent(Node* head, char* id)
 {
     Node* p = head;
-    while (p->next!= NULL)
+    while (p->next != NULL)
     {
         if (strcmp(p->next->data.id, id) == 0)
         {
@@ -89,23 +93,14 @@ Node* searchStudent(Node* head, char* id)
     return NULL;
 }
 
-//查找并打印指定学生信息
-void searchTargetStudent(Node* head, char* id)
-{
-    Node* tar = searchStudent(head, id);
-    if (tar == NULL)
-    {
-        return;;
-    }
-    printf("学号 姓名 班级 科目一 科目二 科目三 总分\n");
-    printStudent(tar);
-}
 
 //新增计数功能，实时记录学生数量
-int countStudents(Node *head) {
+int countStudents(Node* head)
+{
     int count = 0;
-    Node *p = head->next;
-    while (p != NULL) {
+    Node* p = head->next;
+    while (p != NULL)
+    {
         count++;
         p = p->next;
     }
@@ -119,34 +114,24 @@ void printList(Node* head)
     Node* p = head->next;
     if (p == NULL)
     {
-        printf("列表为空！请先加入学生后再试！");
+        printf("暂无学生数据！\n");
         return;
     }
-    printf("学号 姓名 班级 科目一 科目二 科目三 总分\n");
+    printf("%-10s %-10s %-10s ", "学号", "姓名", "班级");
+    for (int i = 0; i < SUBJECT; i++)
+    {
+        printf("科目%d  ", i + 1);
+    }
+    printf("%-8s\n", "总分");
+    printf("------------------------------------------------------------------------\n");
     while (p != NULL)
     {
-        printStudent(p);
-        p = p->next;
-    }
-
-}
-
-//按照班级序号查找目标学生群体
-void filterByClass(Node *head, char *classId)
-{
-    Node* p = head->next;
-    if (p == NULL)
-    {
-        printf("列表为空！请先加入学生后再试！");
-        return;
-    }
-    printf("学号 姓名 班级 科目一 科目二 科目三 总分\n");
-    while (p != NULL)
-    {
-        if (strcmp(p->data.classId, classId) == 0)
+        printf("%-10s %-10s %-10s ", p->data.id, p->data.name, p->data.classId);
+        for (int i = 0; i < SUBJECT; i++)
         {
-            printStudent(p);
+            printf("%-6d ", p->data.subjectScores[i]);
         }
+        printf("%-8d\n", p->data.totalScore);
         p = p->next;
     }
 }
@@ -162,18 +147,23 @@ void sortStudents(Node* head, int sortBy, int order)
     int swapped;
     Node* p;
     Node* q = NULL;
-    do {
+    do
+    {
         swapped = 0;
         p = head;
-        while (p->next != q) {
+        while (p->next != q)
+        {
             int valA, valB;
             // 取值：总分/单科
-            if (sortBy == 0) {
+            if (sortBy == 0)
+            {
                 valA = p->next->data.totalScore;
                 valB = p->next->next->data.totalScore;
-            } else {
-                valA = p->next->data.subjectScores[sortBy-1];
-                valB = p->next->next->data.subjectScores[sortBy-1];
+            }
+            else
+            {
+                valA = p->next->data.subjectScores[sortBy - 1];
+                valB = p->next->next->data.subjectScores[sortBy - 1];
             }
             // 比较：升序/降序
             int needSwap = 0;
@@ -185,7 +175,8 @@ void sortStudents(Node* head, int sortBy, int order)
             {
                 needSwap = 1;
             }
-            if (needSwap) {
+            if (needSwap)
+            {
                 Student temp = p->next->data;
                 p->next->data = p->next->next->data;
                 p->next->next->data = temp;
@@ -194,13 +185,13 @@ void sortStudents(Node* head, int sortBy, int order)
             p = p->next;
         }
         q = p->next;
-    } while (swapped);
+    }
+    while (swapped);
 }
 
 //班内排名
-int get_student_rank(Node* head, char* studentId, int sortBy)
+int getStudentRank(Node* head, char* studentId, int sortBy)
 {
-    //找到目标学生
     Node* targetStudent = searchStudent(head, studentId);
     if (targetStudent == NULL)
     {
@@ -209,18 +200,16 @@ int get_student_rank(Node* head, char* studentId, int sortBy)
     char targetClassId[20];
     strcpy(targetClassId, targetStudent->data.classId);
 
-    //确定要比较的分数（总分 / 单科分）
     int targetScore;
     if (sortBy == 0)
     {
-        targetScore = targetStudent->data.totalScore; // 总分比较
+        targetScore = targetStudent->data.totalScore;
     }
     else
     {
-        targetScore = targetStudent->data.subjectScores[sortBy - 1]; // 单科比较
+        targetScore = targetStudent->data.subjectScores[sortBy - 1];
     }
 
-    //计算排名
     int rank = 1;
     Node* cur = head->next;
 
@@ -247,4 +236,30 @@ int get_student_rank(Node* head, char* studentId, int sortBy)
     }
 
     return rank;
+}
+
+//按照班级筛选出学生
+Node* filterByClass(Node* head, char* classId) {
+    Node* newHead = createList();
+    Node *p = head->next;
+    while (p != NULL) {
+        if (strcmp(p->data.classId, classId) == 0) {
+            insertNode(newHead, p->data);
+        }
+        p = p->next;
+    }
+    return newHead;
+}
+
+//销毁链表
+void destroyList(Node* head)
+{
+    Node* p = head;
+    Node* q = NULL;
+
+    while (p != NULL) {
+        q = p->next;
+        free(p);
+        p = q;
+    }
 }

@@ -1,7 +1,6 @@
 //
 // Created by Megumin on 2026/2/17.
 //
-
 #include "account.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -76,13 +75,10 @@ void destroyAccountList(AccountNode* head)
 int registerAccounts(AccountNode* head)
 {
     Account newAcc;
-    int roleChoice;
-    char choice[3];
-    char confirm_pwd[50];
+    char confirmPwd[50];
 
     printf("\n===== 用户注册 =====\n");
-    printf("请选择注册角色：1.学生 2.教师\n");
-    StrToInt(&roleChoice, choice);
+    int roleChoice = readInt("请选择注册角色：1.学生 2.教师\n");
     if (roleChoice != 1 && roleChoice != 2)
     {
         printf("输入错误！");
@@ -90,35 +86,28 @@ int registerAccounts(AccountNode* head)
     }
     newAcc.role = (roleChoice == 1) ? ROLE_STUDENT : ROLE_TEACHER;
 
-    printf("请输入用户名（学生 = 学号 ， 教师 = 工号）: ");
-    fgets(newAcc.username, sizeof(newAcc.username), stdin);
+    readString(newAcc.username, sizeof(newAcc.username), "请输入用户名（学生 = 学号 ， 教师 = 工号）: ");
     if (searchAccount(head, newAcc.username) != NULL)
     {
         printf("该用户已存在！请登录！\n");
         return 0;
     }
 
-    printf("请输入密码: ");
-    fgets(newAcc.password, sizeof(newAcc.password), stdin);
-    printf("请确认密码: ");
-    fgets(confirm_pwd, sizeof(confirm_pwd), stdin);
+    readString(newAcc.password, sizeof(newAcc.password), "请输入密码: ");
+
     while (true)
     {
-        if (strcmp(newAcc.password, confirm_pwd) != 0)
-        {
-            printf("两次输入的密码不一致！请重新输入！");
-        }
-        else
+        readString(confirmPwd, sizeof(confirmPwd), "请确认密码: ");
+        if (strcmp(newAcc.password, confirmPwd) == 0)
         {
             break;
         }
+        printf("两次输入的密码不一致！请重新输入！");
     }
-    printf("请输入所属班级号：");
-    fgets(newAcc.classId, sizeof(newAcc.classId), stdin);
-    printf("请输入密保问题（用于找回密码）：");
-    fgets(newAcc.securityQuestion, sizeof(newAcc.securityQuestion), stdin);
-    printf("请输入密保答案：");
-    fgets(newAcc.securityAnswer, sizeof(newAcc.securityAnswer), stdin);
+
+    readString(newAcc.classId, sizeof(newAcc.classId), "请输入所属班级号：");
+    readString(newAcc.securityQuestion, sizeof(newAcc.securityQuestion), "请输入密保问题（用于找回密码）：");
+    readString(newAcc.securityAnswer, sizeof(newAcc.securityAnswer), "请输入密保答案：");
 
     addAccount(head, newAcc);
     printf("注册成功！\n");
@@ -131,10 +120,8 @@ int loginAccount(AccountNode* head, Account* loginAcc)
     Account acc;
 
     printf("===== 用户登录 =====\n");
-    printf("请输入用户名: ");
-    fgets(acc.username, sizeof(acc.username), stdin);
-    printf("请输入密码: ");
-    fgets(acc.password, sizeof(acc.password), stdin);
+    readString(acc.username, sizeof(acc.username), "请输入用户名: ");
+    readString(acc.password, sizeof(acc.password), "请输入密码: ");
 
     AccountNode* p = searchAccount(head, acc.username);
     if (p == NULL || strcmp(p->data.password, acc.password) != 0)
@@ -149,7 +136,85 @@ int loginAccount(AccountNode* head, Account* loginAcc)
 }
 
 //找回密码（管理员）
-int findPassword()
+int findPassword(AccountNode* head)
 {
+    char username[20];
+    char answer[50];
+    char newPwd[20];
 
+    printf("\n===== 密码找回 =====\n");
+
+    readString(username, sizeof(username), "请输入用户名：");
+
+    AccountNode* p = searchAccount(head, username);
+    if (p == NULL)
+    {
+        printf("用户名输入错误\n");
+        return 0;
+    }
+
+    printf("账号的密保问题为：%s\n", p->data.securityQuestion);
+
+    int attempts = 3;
+    int verified = 0;
+
+    while (attempts > 0)
+    {
+        printf("请输入密保答案（剩余%d次机会）：", attempts);
+        readString(answer, sizeof(answer), "");
+
+        if (strcmp(answer, p->data.securityAnswer) == 0)
+        {
+            verified = 1;
+            break;
+        }
+        attempts--;
+        if (attempts > 0)
+        {
+            printf("答案错误！请重新输入！\n");
+        }
+    }
+
+    if (!verified)
+    {
+        printf("机会用尽，找回失败！\n");
+        return 0;
+    }
+
+    readString(newPwd, sizeof(newPwd), "请输入新密码：");
+
+    strcpy(p->data.password, newPwd);
+    printf("密码修改成功！\n");
+
+    return 1;
+}
+
+//登陆后修改密码
+int modifyPassword(AccountNode* head, Account* loginAcc)
+{
+    char oldPwd[20];
+    char newPwd[20];
+    char confirmPwd[20];
+
+    printf("\n===== 密码修改 =====\n");
+    readString(oldPwd, sizeof(oldPwd), "请输入原密码：");
+
+    if (strcmp(loginAcc->password, oldPwd) != 0) {
+        printf("原密码错误！\n");
+        return 0;
+    }
+
+    readString(newPwd, sizeof(newPwd), "请输入新密码：");
+    readString(confirmPwd, sizeof(confirmPwd), "请确认新密码：");
+
+    if (strcmp(newPwd, confirmPwd) != 0) {
+        printf("两次密码不一致！\n");
+        return 0;
+    }
+
+    AccountNode* p = searchAccount(head, loginAcc->username);
+    strcpy(p->data.password, newPwd);
+    strcpy(loginAcc->password, newPwd);
+    printf("密码修改成功！\n");
+    return 1;
 }

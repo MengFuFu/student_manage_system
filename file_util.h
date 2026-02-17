@@ -5,9 +5,13 @@
 #ifndef STUDENT_MANAGE_SYSTEM_FILE_UTIL_H
 #define STUDENT_MANAGE_SYSTEM_FILE_UTIL_H
 
+#include "account.h"
+
+void saveStudentsToFile(const Node* head, const char* filename);
+void loadStudentsFromFile(Node* head, const char* filename);
+void saveAccountsToFile(AccountNode *head, const char *filename);
+void loadAccountsFromFile(AccountNode *head, const char *filename);
+void batchImportAccounts(AccountNode* head, const char* filename);
+void batchExportAccounts(AccountNode* head, const char* filename);
+
 #endif //STUDENT_MANAGE_SYSTEM_FILE_UTIL_H
-
-#include "link_list.h"
-
-void save_to_file(const Node* head, const char* filename);
-void load_from_file(Node* head, const char* filename);

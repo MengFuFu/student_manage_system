@@ -6,10 +6,6 @@
 #define STUDENT_MANAGE_SYSTEM_USER_H
 #include <stdbool.h>
 #include "link_list.h"
-#include "str_to_int.h"
-
-#endif //STUDENT_MANAGE_SYSTEM_USER_H
-
 typedef struct Account
 {
     char username[20];
@@ -33,3 +29,7 @@ void deleteAccount(AccountNode* head, char* username);
 void destroyAccountList(AccountNode* head);
 int registerAccounts(AccountNode* head);
 int loginAccount(AccountNode* head, Account* loginAcc);
+int findPassword(AccountNode* head);
+int modifyPassword(AccountNode* head, Account* loginAcc);
+
+#endif //STUDENT_MANAGE_SYSTEM_USER_H
