@@ -11,5 +11,6 @@ add_executable(student_manage_system main.c
         student_sys.c
         file_util.c
         file_util.h
-        user.c
-        user.h)
+        account.c
+        account.h
+        str_to_int.h)

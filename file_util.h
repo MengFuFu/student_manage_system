@@ -9,5 +9,5 @@
 
 #include "link_list.h"
 
-void save_to_file(Node* head, const char* filename);
+void save_to_file(const Node* head, const char* filename);
 void load_from_file(Node* head, const char* filename);

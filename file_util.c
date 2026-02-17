@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 //把链表中的数据用二进制保存在文件中
-void save_to_file(Node* head, const char* filename)
+void save_to_file(const Node* head, const char* filename)
 {
     FILE* fp = fopen(filename, "wb");
     if (fp == NULL)
@@ -40,7 +40,7 @@ void load_from_file(Node* head, const char* filename)
     Student s;
     while (fread(&s, sizeof(Student), 1, fp) == 1)
     {
-        insert_node(head, s);
+        insertNode(head, s);
         count++;
     }
 

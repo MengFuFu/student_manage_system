@@ -2,8 +2,10 @@
 // Created by Megumin on 2026/2/16.
 //
 #include "student_sys.h"
+#include "str_to_int.h"
 #include <stdio.h>
 #include <stdlib.h>
+
 //显示操作菜单
 void show_menu()
 {
@@ -23,17 +25,18 @@ void show_menu()
 void add_student(Node* head)
 {
     Student s;
+    char input[100];
     printf("请输入学生的信息：\n");
     printf("学号（id）：");
     scanf("%s", s.id);
     printf("\n姓名（name）：");
     scanf("%s", s.name);
     printf("\n成绩（score）：");
-    scanf("%d", &s.score);
+    StrToInt(&s.score, input);
 
-    if (insert_node(head, s))
+    if (insertNode(head, s))
     {
-        printf("添加成功！当前共有%d名学生信息", count_students(head));
+        printf("添加成功！当前共有%d名学生信息", countStudents(head));
     }
 
     printf("添加失败！！");
@@ -41,10 +44,11 @@ void add_student(Node* head)
 //修改学生信息
 void modify_student(Node* head)
 {
+    char input[100];
     printf("请输入您要修改的学生id：");
     char id[20];
     scanf("%s", id);
-    Node* curNode = search_student(head, id);
+    Node* curNode = searchStudent(head, id);
     if (curNode != NULL)
     {
         Student newData;
@@ -54,7 +58,7 @@ void modify_student(Node* head)
         printf("\n姓名（name）：");
         scanf("%s", newData.name);
         printf("\n成绩（score）：");
-        scanf("%d", &newData.score);
+        StrToInt(&newData.score, input);
 
         curNode->data = newData;
 
