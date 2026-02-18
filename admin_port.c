@@ -4,88 +4,88 @@
 #include "admin_port.h"
 void adminMainMenu(AccountNode* accHead, Node* stuHead)
 {
-    printf("\n===== ç®¡ç†å‘˜ç«¯ =====\n");
-    printf("1. å¢åˆ æ”¹æŸ¥è´¦å·åŠå­¦ç”Ÿä¿¡æ¯\n");
-    printf("2. ä»æ–‡ä»¶å¯¼å…¥æ‰€æœ‰è´¦å·å¯†ç \n");
-    printf("3. ä»æ–‡ä»¶å¯¼å‡ºæ‰€æœ‰è´¦å·å¯†ç \n");
-    printf("4. ç™»å½•æ•™å¸ˆç«¯è¿›è¡Œä¿¡æ¯æ›´æ”¹\n");
-    printf("5. è¿”å›ä¸Šä¸€çº§\n");
+    printf("\n===== ¹ÜÀíÔ±¶Ë =====\n");
+    printf("1. ÔöÉ¾¸Ä²éÕËºÅ¼°Ñ§ÉúĞÅÏ¢\n");
+    printf("2. ´ÓÎÄ¼şµ¼ÈëËùÓĞÕËºÅÃÜÂë\n");
+    printf("3. ´ÓÎÄ¼şµ¼³öËùÓĞÕËºÅÃÜÂë\n");
+    printf("4. µÇÂ¼½ÌÊ¦¶Ë½øĞĞĞÅÏ¢¸ü¸Ä\n");
+    printf("5. ·µ»ØÉÏÒ»¼¶\n");
 
     while (1)
     {
-        int choice = readInt("è¯·è¾“å…¥é€‰é¡¹ï¼š");
+        int choice = readInt("ÇëÊäÈëÑ¡Ïî£º");
         switch (choice)
         {
         case 1:
             {
-                printf("\n===== è´¦å·ç®¡ç† =====\n");
-                printf("1. æ–°å¢è´¦å· 2. åˆ é™¤è´¦å· 3. æŸ¥æ‰¾è´¦å·\n");
+                printf("\n===== ÕËºÅ¹ÜÀí =====\n");
+                printf("1. ĞÂÔöÕËºÅ 2. É¾³ıÕËºÅ 3. ²éÕÒÕËºÅ\n");
 
-                int newChoice = readInt("è¯·è¾“å…¥é€‰é¡¹ï¼š");
+                int newChoice = readInt("ÇëÊäÈëÑ¡Ïî£º");
                 if (newChoice == 1)
                 {
                     Account acc;
 
-                    readString(acc.username, sizeof(acc.username), "è¯·è¾“å…¥ç”¨æˆ·åï¼š");
-                    readString(acc.password, sizeof(acc.password), "è¯·è¾“å…¥å¯†ç ï¼š");
+                    readString(acc.username, sizeof(acc.username), "ÇëÊäÈëÓÃ»§Ãû£º");
+                    readString(acc.password, sizeof(acc.password), "ÇëÊäÈëÃÜÂë£º");
 
-                    int roleNum = readInt("è¯·è¾“å…¥è§’è‰²ï¼ˆ0å­¦ç”Ÿ 1æ•™å¸ˆ 2ç®¡ç†å‘˜ï¼‰ï¼š");
+                    int roleNum = readInt("ÇëÊäÈë½ÇÉ«£¨0Ñ§Éú 1½ÌÊ¦ 2¹ÜÀíÔ±£©£º");
                     acc.role = (UserRole)roleNum;
-                    readString(acc.classId, sizeof(acc.classId), "è¯·è¾“å…¥ç­çº§å·ï¼ˆç®¡ç†å‘˜ç•™ç©ºï¼‰ï¼š");
-                    readString(acc.securityQuestion, sizeof(acc.securityQuestion), "è¯·è¾“å…¥å¯†ä¿é—®é¢˜ï¼š");
-                    readString(acc.securityAnswer, sizeof(acc.securityAnswer), "è¯·è¾“å…¥å¯†ä¿ç­”æ¡ˆï¼š");
+                    readString(acc.classId, sizeof(acc.classId), "ÇëÊäÈë°à¼¶ºÅ£¨¹ÜÀíÔ±Áô¿Õ£©£º");
+                    readString(acc.securityQuestion, sizeof(acc.securityQuestion), "ÇëÊäÈëÃÜ±£ÎÊÌâ£º");
+                    readString(acc.securityAnswer, sizeof(acc.securityAnswer), "ÇëÊäÈëÃÜ±£´ğ°¸£º");
                     addAccount(accHead, acc);
-                    printf("è´¦å·æ–°å¢æˆåŠŸï¼\n");
+                    printf("ÕËºÅĞÂÔö³É¹¦£¡\n");
                 }
                 else if (newChoice == 2)
                 {
                     char username[20];
-                    readString(username, sizeof(username), "è¯·è¾“å…¥è¦åˆ é™¤çš„ç”¨æˆ·åï¼š");
+                    readString(username, sizeof(username), "ÇëÊäÈëÒªÉ¾³ıµÄÓÃ»§Ãû£º");
                     deleteAccount(accHead, username);
                 }
                 else if (newChoice == 3)
                 {
                     char username[20];
-                    readString(username, sizeof(username), "è¯·è¾“å…¥è¦æŸ¥æ‰¾çš„ç”¨æˆ·åï¼š");
+                    readString(username, sizeof(username), "ÇëÊäÈëÒª²éÕÒµÄÓÃ»§Ãû£º");
                     AccountNode *p = searchAccount(accHead, username);
                     if (p != NULL) {
-                        printf("æ‰¾åˆ°è´¦å·ï¼š%s, è§’è‰²ï¼š%d, ç­çº§ï¼š%s\n",
+                        printf("ÕÒµ½ÕËºÅ£º%s, ½ÇÉ«£º%d, °à¼¶£º%s\n",
                             p->data.username, p->data.role, p->data.classId);
                     } else {
-                        printf("æœªæ‰¾åˆ°ï¼\n");
+                        printf("Î´ÕÒµ½£¡\n");
                     }
                 }
                 break;
             }
         case 2: {
                 char filename[50];
-                readString(filename, sizeof(filename), "è¯·è¾“å…¥å¯¼å…¥æ–‡ä»¶åï¼š");
+                readString(filename, sizeof(filename), "ÇëÊäÈëµ¼ÈëÎÄ¼şÃû£º");
                 batchImportAccounts(accHead, filename);
                 break;
         }
         case 3: {
                 char filename[50];
-                readString(filename, sizeof(filename), "è¯·è¾“å…¥å¯¼å‡ºæ–‡ä»¶åï¼š");
+                readString(filename, sizeof(filename), "ÇëÊäÈëµ¼³öÎÄ¼şÃû£º");
                 batchExportAccounts(accHead, filename);
                 break;
         }
         case 4:
             {
                 char teacherId[20];
-                readString(teacherId, sizeof(teacherId), "è¯·è¾“å…¥è¦ç™»å½•çš„æ•™å¸ˆå·¥å·ï¼š");
+                readString(teacherId, sizeof(teacherId), "ÇëÊäÈëÒªµÇÂ¼µÄ½ÌÊ¦¹¤ºÅ£º");
                 AccountNode* p = searchAccount(accHead, teacherId);
                 if (p == NULL || p->data.role != ROLE_TEACHER) {
-                    printf("æ•™å¸ˆè´¦å·ä¸å­˜åœ¨ï¼\n");
+                    printf("½ÌÊ¦ÕËºÅ²»´æÔÚ£¡\n");
                     break;
                 }
                 teacherMainMenu(&p->data, stuHead);
                 break;
             }
         case 5:
-            printf("æ­£åœ¨è¿”å›ç™»å½•ç•Œé¢...\n");
+            printf("ÕıÔÚ·µ»ØµÇÂ¼½çÃæ...\n");
             return;
         default:
-            printf("æ— æ•ˆé€‰é¡¹ï¼\n");
+            printf("ÎŞĞ§Ñ¡Ïî£¡\n");
         }
     }
 }

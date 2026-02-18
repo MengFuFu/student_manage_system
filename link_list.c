@@ -2,14 +2,14 @@
 // Created by Megumin on 2026/2/16.
 //
 
-/*å®ç°é“¾è¡¨çš„åŸºæœ¬åŠŸèƒ½-å¢åˆ æ”¹æŸ¥-*/
+/*ÊµÏÖÁ´±íµÄ»ù±¾¹¦ÄÜ-ÔöÉ¾¸Ä²é-*/
 #include "link_list.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-//é“¾è¡¨åˆå§‹åŒ–---å¸¦å¤´èŠ‚ç‚¹
+//Á´±í³õÊ¼»¯---´øÍ·½Úµã
 Node* createList()
 {
     Node* head = (Node*)malloc(sizeof(Node));
@@ -18,7 +18,7 @@ Node* createList()
     return head;
 }
 
-//æ‰“å°å•ä¸ªå­¦ç”Ÿä¿¡æ¯
+//´òÓ¡µ¥¸öÑ§ÉúĞÅÏ¢
 void printStudent(Node* p)
 {
     if (p == NULL)
@@ -29,7 +29,7 @@ void printStudent(Node* p)
            p->data.subjectScores[1], p->data.subjectScores[2], p->data.totalScore);
 }
 
-//æ·»åŠ å­¦ç”ŸèŠ‚ç‚¹---æ’å…¥èŠ‚ç‚¹
+//Ìí¼ÓÑ§Éú½Úµã---²åÈë½Úµã
 bool insertNode(Node* head, Student s)
 {
     s.totalScore = 0;
@@ -39,14 +39,14 @@ bool insertNode(Node* head, Student s)
     }
     if (head == NULL)
     {
-        printf("ç¨‹åºå‡ºé”™ï¼Œè¯·ä¼ å…¥æ­£ç¡®çš„å¤´èŠ‚ç‚¹!");
+        printf("³ÌĞò³ö´í£¬Çë´«ÈëÕıÈ·µÄÍ·½Úµã!");
         return false;
     }
 
     Node* newNode = (Node*)malloc(sizeof(Node));
     if (newNode == NULL)
     {
-        perror("å†…å­˜åˆ†é…å¤±è´¥ï¼");
+        perror("ÄÚ´æ·ÖÅäÊ§°Ü£¡");
         return false;
     }
 
@@ -57,7 +57,7 @@ bool insertNode(Node* head, Student s)
     return true;
 }
 
-//åˆ é™¤å­¦ç”ŸèŠ‚ç‚¹
+//É¾³ıÑ§Éú½Úµã
 bool deleteNode(Node* head, char* id)
 {
     Node* p = head;
@@ -66,17 +66,17 @@ bool deleteNode(Node* head, char* id)
         if (strcmp(p->next->data.id, id) == 0)
         {
             p->next = p->next->next;
-            printf("åˆ é™¤æˆåŠŸï¼");
+            printf("É¾³ı³É¹¦£¡");
             return true;
         }
         p = p->next;
     }
 
-    printf("æŸ¥æ— æ­¤äººï¼Œåˆ é™¤å¤±è´¥ï¼");
+    printf("²éÎŞ´ËÈË£¬É¾³ıÊ§°Ü£¡");
     return false;
 }
 
-//æŸ¥æ‰¾å­¦ç”ŸèŠ‚ç‚¹
+//²éÕÒÑ§Éú½Úµã
 Node* searchStudent(Node* head, char* id)
 {
     Node* p = head;
@@ -89,12 +89,12 @@ Node* searchStudent(Node* head, char* id)
         p = p->next;
     }
 
-    printf("æŸ¥æ— æ­¤äººï¼");
+    printf("²éÎŞ´ËÈË£¡");
     return NULL;
 }
 
 
-//æ–°å¢è®¡æ•°åŠŸèƒ½ï¼Œå®æ—¶è®°å½•å­¦ç”Ÿæ•°é‡
+//ĞÂÔö¼ÆÊı¹¦ÄÜ£¬ÊµÊ±¼ÇÂ¼Ñ§ÉúÊıÁ¿
 int countStudents(Node* head)
 {
     int count = 0;
@@ -108,21 +108,26 @@ int countStudents(Node* head)
     return count;
 }
 
-//æ‰“å°æ‰€æœ‰å­¦ç”Ÿä¿¡æ¯
+//´òÓ¡ËùÓĞÑ§ÉúĞÅÏ¢
 void printList(Node* head)
 {
+    if (head == NULL) {
+        printf("ÔİÎŞÑ§ÉúÊı¾İ£¡\n");
+        return;
+    }
+
     Node* p = head->next;
     if (p == NULL)
     {
-        printf("æš‚æ— å­¦ç”Ÿæ•°æ®ï¼\n");
+        printf("ÔİÎŞÑ§ÉúÊı¾İ£¡\n");
         return;
     }
-    printf("%-10s %-10s %-10s ", "å­¦å·", "å§“å", "ç­çº§");
+    printf("%-10s %-10s %-10s ", "Ñ§ºÅ", "ĞÕÃû", "°à¼¶");
     for (int i = 0; i < SUBJECT; i++)
     {
-        printf("ç§‘ç›®%d  ", i + 1);
+        printf("¿ÆÄ¿%d  ", i + 1);
     }
-    printf("%-8s\n", "æ€»åˆ†");
+    printf("%-8s\n", "×Ü·Ö");
     printf("------------------------------------------------------------------------\n");
     while (p != NULL)
     {
@@ -136,9 +141,13 @@ void printList(Node* head)
     }
 }
 
-//å‡çº§äº†æ’åºåŠŸèƒ½ï¼Œå¯å¯¹æ‰€æœ‰å­¦ç”ŸæŒ‰ç…§æ€»æˆç»© å•ç§‘æˆç»©ç­‰æ’åºï¼ˆå‡åº / é™åºï¼‰
+//Éı¼¶ÁËÅÅĞò¹¦ÄÜ£¬¿É¶ÔËùÓĞÑ§Éú°´ÕÕ×Ü³É¼¨ µ¥¿Æ³É¼¨µÈÅÅĞò£¨ÉıĞò / ½µĞò£©
 void sortStudents(Node* head, int sortBy, int order)
 {
+    if (head == NULL) {
+        return;
+    }
+
     if (head->next == NULL || head->next->next == NULL)
     {
         return;
@@ -151,10 +160,12 @@ void sortStudents(Node* head, int sortBy, int order)
     {
         swapped = 0;
         p = head;
-        while (p->next != q)
+
+        while (p->next != q && p->next != NULL && p->next->next != NULL)
         {
-            int valA, valB;
-            // å–å€¼ï¼šæ€»åˆ†/å•ç§‘
+            int valA;
+            int valB;
+
             if (sortBy == 0)
             {
                 valA = p->next->data.totalScore;
@@ -162,10 +173,13 @@ void sortStudents(Node* head, int sortBy, int order)
             }
             else
             {
+                if (sortBy < 1 || sortBy > SUBJECT) {
+                    break;
+                }
                 valA = p->next->data.subjectScores[sortBy - 1];
                 valB = p->next->next->data.subjectScores[sortBy - 1];
             }
-            // æ¯”è¾ƒï¼šå‡åº/é™åº
+
             int needSwap = 0;
             if (order == 0 && valA > valB)
             {
@@ -189,7 +203,8 @@ void sortStudents(Node* head, int sortBy, int order)
     while (swapped);
 }
 
-//ç­å†…æ’å
+
+//°àÄÚÅÅÃû
 int getStudentRank(Node* head, char* studentId, int sortBy)
 {
     Node* targetStudent = searchStudent(head, studentId);
@@ -238,8 +253,12 @@ int getStudentRank(Node* head, char* studentId, int sortBy)
     return rank;
 }
 
-//æŒ‰ç…§ç­çº§ç­›é€‰å‡ºå­¦ç”Ÿ
+//°´ÕÕ°à¼¶É¸Ñ¡³öÑ§Éú
 Node* filterByClass(Node* head, char* classId) {
+    if (head == NULL || classId == NULL) {
+        return createList();
+    }
+
     Node* newHead = createList();
     Node *p = head->next;
     while (p != NULL) {
@@ -251,9 +270,13 @@ Node* filterByClass(Node* head, char* classId) {
     return newHead;
 }
 
-//é”€æ¯é“¾è¡¨
+//Ïú»ÙÁ´±í
 void destroyList(Node* head)
 {
+    if (head == NULL) {
+        return;
+    }
+
     Node* p = head;
     Node* q = NULL;
 

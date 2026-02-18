@@ -2,81 +2,105 @@
 // Created by Megumin on 2026/2/18.
 //
 #include "teacher_port.h"
+
 void teacherMainMenu(Account* loginAcc, Node* stuHead)
 {
-    printf("\n===== æ•™å¸ˆç«¯ =====\n");
-    printf("1. å¢åˆ æ”¹æŸ¥å­¦ç”Ÿä¿¡æ¯\n");
-    printf("2. æŸ¥çœ‹ç­å†…æˆç»©\n");
-    printf("3. æˆç»©åˆ†æ\n");
-    printf("4. è¿”å›ä¸Šä¸€çº§\n");
+    int choice;
+    char choiceNum[10];
+
+    printf("\n===== ½ÌÊ¦¶Ë =====\n");
+    printf("1. ÔöÉ¾¸Ä²éÑ§ÉúĞÅÏ¢\n");
+    printf("2. ²é¿´°àÄÚ³É¼¨\n");
+    printf("3. ³É¼¨·ÖÎö\n");
+    printf("4. ·µ»ØÉÏÒ»¼¶\n");
 
     while (1)
     {
-        int choice = readInt("è¯·è¾“å…¥é€‰é¡¹ï¼š");
+        choice = readInt("ÇëÊäÈëÑ¡Ïî£º");
 
         switch (choice)
         {
         case 1:
             {
-                printf("\n===== å­¦ç”Ÿä¿¡æ¯ç®¡ç† =====\n");
-                printf("1. æ–°å¢å­¦ç”Ÿ 2. ä¿®æ”¹å­¦ç”Ÿ 3. åˆ é™¤å­¦ç”Ÿ 4. æŸ¥æ‰¾å­¦ç”Ÿ\n");
-                int newChoice = readInt("è¯·è¾“å…¥é€‰é¡¹ï¼š");
+                int newChoice;
+                char newChoiceNum[10];
+                printf("\n===== Ñ§ÉúĞÅÏ¢¹ÜÀí =====\n");
+                printf("1. ĞÂÔöÑ§Éú 2. ĞŞ¸ÄÑ§Éú 3. É¾³ıÑ§Éú 4. ²éÕÒÑ§Éú\n");
+                newChoice = readInt("ÇëÊäÈëÑ¡Ïî£º");
 
                 if (newChoice == 1)
                 {
                     Student s;
                     strcpy(s.classId, loginAcc->classId);
-                    readString(s.id, sizeof(s.id), "è¯·è¾“å…¥å­¦å·ï¼š");
-                    readString(s.name, sizeof(s.name), "è¯·è¾“å…¥å§“åï¼š");
+                    s.totalScore = 0;
+
+                    readString(s.id, sizeof(s.id), "ÇëÊäÈëÑ§ºÅ£º");
+                    readString(s.name, sizeof(s.name), "ÇëÊäÈëĞÕÃû£º");
+
                     for (int i = 0; i < SUBJECT; i++)
                     {
-                        printf("è¯·è¾“å…¥ç§‘ç›®%dæˆç»©ï¼š", i + 1);
-                        s.subjectScores[i] = readInt("");
+                        char prompt[50];
+                        sprintf(prompt, "ÇëÊäÈë¿ÆÄ¿%d³É¼¨£º", i + 1);
+                        s.subjectScores[i] = readInt(prompt);
+                        s.totalScore += s.subjectScores[i];
                     }
+
                     insertNode(stuHead, s);
-                    printf("æ·»åŠ æˆåŠŸï¼");
+                    printf("Ìí¼Ó³É¹¦£¡\n");
                 }
                 else if (newChoice == 2)
                 {
                     Student newS;
+                    char tarId[20];
+                    readString(tarId, sizeof(tarId), "ÇëÊäÈëÄ¿±êÑ§ÉúµÄÑ§ºÅ£º");
+
+                    Node* tar = searchStudent(stuHead, tarId);
+                    if (tar == NULL)
+                    {
+                        break;
+                    }
+
                     strcpy(newS.classId, loginAcc->classId);
+                    strcpy(newS.id, tarId);
                     newS.totalScore = 0;
-                    readString(newS.id, sizeof(newS.id), "è¯·è¾“å…¥ç›®æ ‡å­¦ç”Ÿçš„å­¦å·ï¼š");
-                    readString(newS.name, sizeof(newS.name), "è¯·è¾“å…¥æ–°çš„å§“åï¼š");
+
+                    readString(newS.name, sizeof(newS.name), "ÇëÊäÈëĞÂµÄĞÕÃû£º");
+
                     for (int i = 0; i < SUBJECT; i++)
                     {
-                        printf("è¯·è¾“å…¥ç§‘ç›®%dæˆç»©ï¼š", i + 1);
-                        newS.subjectScores[i] = readInt("");
+                        char prompt[50];
+                        sprintf(prompt, "ÇëÊäÈë¿ÆÄ¿%d³É¼¨£º", i + 1);
+                        newS.subjectScores[i] = readInt(prompt);
                         newS.totalScore += newS.subjectScores[i];
                     }
-                    Node* tar = searchStudent(stuHead, newS.id);
-                    if (tar != NULL) {
-                        tar->data = newS;
-                    }
+
+                    tar->data = newS;
+                    printf("ĞŞ¸Ä³É¹¦£¡\n");
                 }
                 else if (newChoice == 3)
                 {
                     char tar[20];
-                    readString(tar, sizeof(tar), "è¯·è¾“å…¥è¦åˆ é™¤å­¦ç”Ÿçš„å­¦å·ï¼š");
+                    readString(tar, sizeof(tar), "ÇëÊäÈëÒªÉ¾³ıÑ§ÉúµÄÑ§ºÅ£º");
                     deleteNode(stuHead, tar);
+                    printf("É¾³ı³É¹¦£¡\n");
                 }
                 else if (newChoice == 4)
                 {
                     char tar[20];
-                    readString(tar, sizeof(tar), "è¯·è¾“å…¥è¦æŸ¥æ‰¾å­¦ç”Ÿçš„å­¦å·ï¼š");
+                    readString(tar, sizeof(tar), "ÇëÊäÈëÒª²éÕÒÑ§ÉúµÄÑ§ºÅ£º");
                     Node* p = searchStudent(stuHead, tar);
 
-                    if (p == NULL) {
-                        printf("æŸ¥æ— æ­¤äººï¼\n");
+                    if (p == NULL)
+                    {
                         break;
                     }
 
-                    printf("%-10s %-10s %-10s ", "å­¦å·", "å§“å", "ç­çº§");
+                    printf("\n%-10s %-10s %-10s ", "Ñ§ºÅ", "ĞÕÃû", "°à¼¶");
                     for (int i = 0; i < SUBJECT; i++)
                     {
-                        printf("ç§‘ç›®%d  ", i + 1);
+                        printf("¿ÆÄ¿%d  ", i + 1);
                     }
-                    printf("%-8s\n", "æ€»åˆ†");
+                    printf("%-8s\n", "×Ü·Ö");
                     printf("------------------------------------------------------------------------\n");
                     printf("%-10s %-10s %-10s ", p->data.id, p->data.name, p->data.classId);
                     for (int i = 0; i < SUBJECT; i++)
@@ -87,13 +111,13 @@ void teacherMainMenu(Account* loginAcc, Node* stuHead)
                 }
                 else
                 {
-                    printf("è¾“å…¥é”™è¯¯ï¼\n");
+                    printf("ÊäÈë´íÎó£¡\n");
                 }
             }
             break;
         case 2:
             {
-                printf("\n===== ç­å†…æˆç»© =====\n");
+                printf("\n===== °àÄÚ³É¼¨ =====\n");
                 Node* classList = filterByClass(stuHead, loginAcc->classId);
                 sortStudents(classList, 0, 1);
                 printList(classList);
@@ -102,19 +126,24 @@ void teacherMainMenu(Account* loginAcc, Node* stuHead)
             }
         case 3:
             {
-                printf("\n===== ç­çº§æˆç»©åˆ†æ =====\n");
+                printf("\n===== °à¼¶³É¼¨·ÖÎö =====\n");
                 Node* classList = filterByClass(stuHead, loginAcc->classId);
-                Node *p = classList->next;
-                if (p == NULL) {
-                    printf("æš‚æ— æ•°æ®ï¼\n");
+                Node* p = classList->next;
+
+                if (p == NULL)
+                {
+                    printf("ÔİÎŞÊı¾İ£¡\n");
                     destroyList(classList);
                     break;
                 }
+
                 int sum = 0;
                 int max = p->data.totalScore;
                 int min = p->data.totalScore;
                 int count = 0;
-                while (p != NULL) {
+
+                while (p != NULL)
+                {
                     sum += p->data.totalScore;
                     if (p->data.totalScore > max)
                     {
@@ -127,18 +156,20 @@ void teacherMainMenu(Account* loginAcc, Node* stuHead)
                     count++;
                     p = p->next;
                 }
-                printf("ç­çº§æ€»äººæ•°ï¼š%däºº\n", count);
-                printf("ç­çº§å¹³å‡åˆ†ï¼š%.2fåˆ†\n", (float)sum / count);
-                printf("ç­çº§æœ€é«˜åˆ†ï¼š%dåˆ†\n", max);
-                printf("ç­çº§æœ€ä½åˆ†ï¼š%dåˆ†\n", min);
+
+                printf("°à¼¶×ÜÈËÊı£º%dÈË\n", count);
+                printf("°à¼¶Æ½¾ù·Ö£º%.2f·Ö\n", (float)sum / count);
+                printf("°à¼¶×î¸ß·Ö£º%d·Ö\n", max);
+                printf("°à¼¶×îµÍ·Ö£º%d·Ö\n", min);
+
                 destroyList(classList);
                 break;
             }
         case 4:
-            printf("æ­£åœ¨è¿”å›ç™»å½•ç•Œé¢...\n");
+            printf("ÕıÔÚ·µ»ØµÇÂ¼½çÃæ...\n");
             return;
         default:
-            printf("æ— æ•ˆé€‰é¡¹\n");
+            printf("ÎŞĞ§Ñ¡Ïî\n");
             break;
         }
     }

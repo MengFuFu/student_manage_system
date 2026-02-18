@@ -5,14 +5,14 @@
 
 #include "file_util.h"
 
-//å­¦ç”Ÿæ•°æ®
-//æŠŠé“¾è¡¨ä¸­çš„æ•°æ®ç”¨äºŒè¿›åˆ¶ä¿å­˜åœ¨æ–‡ä»¶ä¸­
+//Ñ§ÉúÊý¾Ý
+//°ÑÁ´±íÖÐµÄÊý¾ÝÓÃ¶þ½øÖÆ±£´æÔÚÎÄ¼þÖÐ
 void saveStudentsToFile(const Node* head, const char* filename)
 {
     FILE* fp = fopen(filename, "wb");
     if (fp == NULL)
     {
-        printf("å­¦ç”Ÿæ•°æ®æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼");
+        printf("Ñ§ÉúÊý¾ÝÎÄ¼þ´ò¿ªÊ§°Ü£¡");
         return;
     }
 
@@ -24,10 +24,10 @@ void saveStudentsToFile(const Node* head, const char* filename)
     }
 
     fclose(fp);
-    printf("å­¦ç”Ÿæ•°æ®å·²ä¿å­˜åˆ° %s\n", filename);
+    printf("Ñ§ÉúÊý¾ÝÒÑ±£´æµ½ %s\n", filename);
 }
 
-//æ•°æ®é‡è½½ï¼Œä»Žæ–‡ä»¶åŠ è½½åˆ°é“¾è¡¨
+//Êý¾ÝÖØÔØ£¬´ÓÎÄ¼þ¼ÓÔØµ½Á´±í
 void loadStudentsFromFile(Node* head, const char* filename)
 {
     FILE* fp = fopen(filename, "rb");
@@ -46,17 +46,17 @@ void loadStudentsFromFile(Node* head, const char* filename)
 
     fclose(fp);
 
-    printf("åŠ è½½åˆ°%dä¸ªå­¦ç”Ÿæ•°æ®", count);
+    printf("¼ÓÔØµ½%d¸öÑ§ÉúÊý¾Ý", count);
 }
 
-//è´¦å·æ•°æ®æ–‡ä»¶æ“ä½œ
-//ä¿å­˜æ•°æ®
+//ÕËºÅÊý¾ÝÎÄ¼þ²Ù×÷
+//±£´æÊý¾Ý
 void saveAccountsToFile(AccountNode *head, const char *filename)
 {
     FILE* fp = fopen(filename, "wb");
     if (fp == NULL)
     {
-        printf("è´¦å·æ•°æ®æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼");
+        printf("ÕËºÅÊý¾ÝÎÄ¼þ´ò¿ªÊ§°Ü£¡");
         return;
     }
 
@@ -68,10 +68,10 @@ void saveAccountsToFile(AccountNode *head, const char *filename)
     }
 
     fclose(fp);
-    printf("æ•°æ®å·²ä¿å­˜åˆ° %s\n", filename);
+    printf("Êý¾ÝÒÑ±£´æµ½ %s\n", filename);
 }
 
-//åŠ è½½æ•°æ®
+//¼ÓÔØÊý¾Ý
 void loadAccountsFromFile(AccountNode *head, const char *filename)
 {
     FILE *fp = fopen(filename, "rb");
@@ -88,18 +88,18 @@ void loadAccountsFromFile(AccountNode *head, const char *filename)
 }
 
 
-//ç®¡ç†å‘˜æ‰¹é‡å¯¼å…¥ / å¯¼å‡ºè´¦å·
+//¹ÜÀíÔ±ÅúÁ¿µ¼Èë / µ¼³öÕËºÅ
 void batchImportAccounts(AccountNode* head, const char* filename)
 {
     FILE* fp = fopen(filename, "r");
     if (fp == NULL)
     {
-        printf("å¯¼å…¥æ–‡ä»¶ä¸å­˜åœ¨ï¼\n");
+        printf("µ¼ÈëÎÄ¼þ²»´æÔÚ£¡\n");
         return;
     }
     Account acc;
     int roleNum;
-    //ç”¨æˆ·å,å¯†ç ,è§’è‰²ç¼–å·,ç­çº§,å¯†ä¿é—®é¢˜,å¯†ä¿ç­”æ¡ˆ
+    //ÓÃ»§Ãû,ÃÜÂë,½ÇÉ«±àºÅ,°à¼¶,ÃÜ±£ÎÊÌâ,ÃÜ±£´ð°¸
     while (fscanf(fp, "%[^,],%[^,],%d,%[^,],%[^,],%[^\n]\n",
                   acc.username, acc.password, &roleNum, acc.classId,
                   acc.securityQuestion, acc.securityAnswer) != EOF)
@@ -111,7 +111,7 @@ void batchImportAccounts(AccountNode* head, const char* filename)
         }
     }
     fclose(fp);
-    printf("è´¦å·æ‰¹é‡å¯¼å…¥å®Œæˆï¼\n");
+    printf("ÕËºÅÅúÁ¿µ¼ÈëÍê³É£¡\n");
 }
 
 void batchExportAccounts(AccountNode* head, const char* filename)
@@ -119,7 +119,7 @@ void batchExportAccounts(AccountNode* head, const char* filename)
     FILE* fp = fopen(filename, "w");
     if (fp == NULL)
     {
-        printf("æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼\n");
+        printf("ÎÄ¼þ´ò¿ªÊ§°Ü£¡\n");
         return;
     }
     AccountNode* p = head->next;
@@ -131,5 +131,5 @@ void batchExportAccounts(AccountNode* head, const char* filename)
         p = p->next;
     }
     fclose(fp);
-    printf("è´¦å·æ‰¹é‡å¯¼å‡ºå®Œæˆï¼\n");
+    printf("ÕËºÅÅúÁ¿µ¼³öÍê³É£¡\n");
 }

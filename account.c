@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-//åˆ›å»ºè´¦å·é“¾è¡¨
+//´´½¨ÕËºÅÁ´±í
 AccountNode* creatAccountList()
 {
     AccountNode* head = (AccountNode*)malloc(sizeof(AccountNode));
@@ -15,12 +15,12 @@ AccountNode* creatAccountList()
     return head;
 }
 
-//æ·»åŠ è´¦æˆ·
+//Ìí¼ÓÕË»§
 void addAccount(AccountNode* head, Account acc)
 {
     AccountNode* p = (AccountNode*)malloc(sizeof(AccountNode));
     if (p == NULL) {
-        printf("å†…å­˜åˆ†é…å¤±è´¥ï¼\n");
+        printf("ÄÚ´æ·ÖÅäÊ§°Ü£¡\n");
         return;
     }
     p->data = acc;
@@ -28,7 +28,7 @@ void addAccount(AccountNode* head, Account acc)
     head->next = p;
 }
 
-//æŸ¥æ‰¾ç”¨æˆ·
+//²éÕÒÓÃ»§
 AccountNode* searchAccount(AccountNode* head, char* username)
 {
     AccountNode* p = head->next;
@@ -42,7 +42,7 @@ AccountNode* searchAccount(AccountNode* head, char* username)
     return NULL;
 }
 
-//åˆ é™¤ç”¨æˆ·
+//É¾³ıÓÃ»§
 void deleteAccount(AccountNode* head, char* username)
 {
     AccountNode* p = head;
@@ -50,15 +50,15 @@ void deleteAccount(AccountNode* head, char* username)
         if (strcmp(p->next->data.username, username) == 0) {
             AccountNode* q = p->next;
             p->next = q->next;
-            printf("è´¦å·åˆ é™¤æˆåŠŸï¼\n");
+            printf("ÕËºÅÉ¾³ı³É¹¦£¡\n");
             return;
         }
         p = p->next;
     }
-    printf("æœªæ‰¾åˆ°è¯¥è´¦å·ï¼\n");
+    printf("Î´ÕÒµ½¸ÃÕËºÅ£¡\n");
 }
 
-//æ¸…ç©ºæ‰€æœ‰è´¦æˆ·ä¿¡æ¯
+//Çå¿ÕËùÓĞÕË»§ĞÅÏ¢
 void destroyAccountList(AccountNode* head)
 {
     AccountNode* p = head;
@@ -70,97 +70,97 @@ void destroyAccountList(AccountNode* head)
     }
 }
 
-//===========================ä¸»ä¸šåŠ¡åŠŸèƒ½åŒº==================================
-//æ³¨å†ŒåŠŸèƒ½å®ç°->å®ç°åˆ†è§’è‰²æ³¨å†Œ
+//===========================Ö÷ÒµÎñ¹¦ÄÜÇø==================================
+//×¢²á¹¦ÄÜÊµÏÖ->ÊµÏÖ·Ö½ÇÉ«×¢²á
 int registerAccounts(AccountNode* head)
 {
     Account newAcc;
     char confirmPwd[50];
 
-    printf("\n===== ç”¨æˆ·æ³¨å†Œ =====\n");
-    int roleChoice = readInt("è¯·é€‰æ‹©æ³¨å†Œè§’è‰²ï¼š1.å­¦ç”Ÿ 2.æ•™å¸ˆ\n");
+    printf("\n===== ÓÃ»§×¢²á =====\n");
+    int roleChoice = readInt("ÇëÑ¡Ôñ×¢²á½ÇÉ«£º1.Ñ§Éú 2.½ÌÊ¦\n");
     if (roleChoice != 1 && roleChoice != 2)
     {
-        printf("è¾“å…¥é”™è¯¯ï¼");
+        printf("ÊäÈë´íÎó£¡");
         return 0;
     }
     newAcc.role = (roleChoice == 1) ? ROLE_STUDENT : ROLE_TEACHER;
 
-    readString(newAcc.username, sizeof(newAcc.username), "è¯·è¾“å…¥ç”¨æˆ·åï¼ˆå­¦ç”Ÿ = å­¦å· ï¼Œ æ•™å¸ˆ = å·¥å·ï¼‰: ");
+    readString(newAcc.username, sizeof(newAcc.username), "ÇëÊäÈëÓÃ»§Ãû£¨Ñ§Éú = Ñ§ºÅ £¬ ½ÌÊ¦ = ¹¤ºÅ£©: ");
     if (searchAccount(head, newAcc.username) != NULL)
     {
-        printf("è¯¥ç”¨æˆ·å·²å­˜åœ¨ï¼è¯·ç™»å½•ï¼\n");
+        printf("¸ÃÓÃ»§ÒÑ´æÔÚ£¡ÇëµÇÂ¼£¡\n");
         return 0;
     }
 
-    readString(newAcc.password, sizeof(newAcc.password), "è¯·è¾“å…¥å¯†ç : ");
+    readString(newAcc.password, sizeof(newAcc.password), "ÇëÊäÈëÃÜÂë: ");
 
     while (true)
     {
-        readString(confirmPwd, sizeof(confirmPwd), "è¯·ç¡®è®¤å¯†ç : ");
+        readString(confirmPwd, sizeof(confirmPwd), "ÇëÈ·ÈÏÃÜÂë: ");
         if (strcmp(newAcc.password, confirmPwd) == 0)
         {
             break;
         }
-        printf("ä¸¤æ¬¡è¾“å…¥çš„å¯†ç ä¸ä¸€è‡´ï¼è¯·é‡æ–°è¾“å…¥ï¼");
+        printf("Á½´ÎÊäÈëµÄÃÜÂë²»Ò»ÖÂ£¡ÇëÖØĞÂÊäÈë£¡");
     }
 
-    readString(newAcc.classId, sizeof(newAcc.classId), "è¯·è¾“å…¥æ‰€å±ç­çº§å·ï¼š");
-    readString(newAcc.securityQuestion, sizeof(newAcc.securityQuestion), "è¯·è¾“å…¥å¯†ä¿é—®é¢˜ï¼ˆç”¨äºæ‰¾å›å¯†ç ï¼‰ï¼š");
-    readString(newAcc.securityAnswer, sizeof(newAcc.securityAnswer), "è¯·è¾“å…¥å¯†ä¿ç­”æ¡ˆï¼š");
+    readString(newAcc.classId, sizeof(newAcc.classId), "ÇëÊäÈëËùÊô°à¼¶ºÅ£º");
+    readString(newAcc.securityQuestion, sizeof(newAcc.securityQuestion), "ÇëÊäÈëÃÜ±£ÎÊÌâ£¨ÓÃÓÚÕÒ»ØÃÜÂë£©£º");
+    readString(newAcc.securityAnswer, sizeof(newAcc.securityAnswer), "ÇëÊäÈëÃÜ±£´ğ°¸£º");
 
     addAccount(head, newAcc);
-    printf("æ³¨å†ŒæˆåŠŸï¼\n");
+    printf("×¢²á³É¹¦£¡\n");
     return 1;
 }
 
-//ç™»å½•åŠŸèƒ½
+//µÇÂ¼¹¦ÄÜ
 int loginAccount(AccountNode* head, Account* loginAcc)
 {
     Account acc;
 
-    printf("===== ç”¨æˆ·ç™»å½• =====\n");
-    readString(acc.username, sizeof(acc.username), "è¯·è¾“å…¥ç”¨æˆ·å: ");
-    readString(acc.password, sizeof(acc.password), "è¯·è¾“å…¥å¯†ç : ");
+    printf("===== ÓÃ»§µÇÂ¼ =====\n");
+    readString(acc.username, sizeof(acc.username), "ÇëÊäÈëÓÃ»§Ãû: ");
+    readString(acc.password, sizeof(acc.password), "ÇëÊäÈëÃÜÂë: ");
 
     AccountNode* p = searchAccount(head, acc.username);
     if (p == NULL || strcmp(p->data.password, acc.password) != 0)
     {
-        printf("ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯ï¼\n");
+        printf("ÓÃ»§Ãû»òÃÜÂë´íÎó£¡\n");
         return 0;
     }
 
     *loginAcc = p->data;
-    printf("ç™»é™†æˆåŠŸï¼æ¬¢è¿ä½ ï¼Œ%sï¼\n", p->data.username);
+    printf("µÇÂ½³É¹¦£¡»¶Ó­Äã£¬%s£¡\n", p->data.username);
     return 1;
 }
 
-//æ‰¾å›å¯†ç ï¼ˆç®¡ç†å‘˜ï¼‰
+//ÕÒ»ØÃÜÂë£¨¹ÜÀíÔ±£©
 int findPassword(AccountNode* head)
 {
     char username[20];
     char answer[50];
     char newPwd[20];
 
-    printf("\n===== å¯†ç æ‰¾å› =====\n");
+    printf("\n===== ÃÜÂëÕÒ»Ø =====\n");
 
-    readString(username, sizeof(username), "è¯·è¾“å…¥ç”¨æˆ·åï¼š");
+    readString(username, sizeof(username), "ÇëÊäÈëÓÃ»§Ãû£º");
 
     AccountNode* p = searchAccount(head, username);
     if (p == NULL)
     {
-        printf("ç”¨æˆ·åè¾“å…¥é”™è¯¯\n");
+        printf("ÓÃ»§ÃûÊäÈë´íÎó\n");
         return 0;
     }
 
-    printf("è´¦å·çš„å¯†ä¿é—®é¢˜ä¸ºï¼š%s\n", p->data.securityQuestion);
+    printf("ÕËºÅµÄÃÜ±£ÎÊÌâÎª£º%s\n", p->data.securityQuestion);
 
     int attempts = 3;
     int verified = 0;
 
     while (attempts > 0)
     {
-        printf("è¯·è¾“å…¥å¯†ä¿ç­”æ¡ˆï¼ˆå‰©ä½™%dæ¬¡æœºä¼šï¼‰ï¼š", attempts);
+        printf("ÇëÊäÈëÃÜ±£´ğ°¸£¨Ê£Óà%d´Î»ú»á£©£º", attempts);
         readString(answer, sizeof(answer), "");
 
         if (strcmp(answer, p->data.securityAnswer) == 0)
@@ -171,50 +171,50 @@ int findPassword(AccountNode* head)
         attempts--;
         if (attempts > 0)
         {
-            printf("ç­”æ¡ˆé”™è¯¯ï¼è¯·é‡æ–°è¾“å…¥ï¼\n");
+            printf("´ğ°¸´íÎó£¡ÇëÖØĞÂÊäÈë£¡\n");
         }
     }
 
     if (!verified)
     {
-        printf("æœºä¼šç”¨å°½ï¼Œæ‰¾å›å¤±è´¥ï¼\n");
+        printf("»ú»áÓÃ¾¡£¬ÕÒ»ØÊ§°Ü£¡\n");
         return 0;
     }
 
-    readString(newPwd, sizeof(newPwd), "è¯·è¾“å…¥æ–°å¯†ç ï¼š");
+    readString(newPwd, sizeof(newPwd), "ÇëÊäÈëĞÂÃÜÂë£º");
 
     strcpy(p->data.password, newPwd);
-    printf("å¯†ç ä¿®æ”¹æˆåŠŸï¼\n");
+    printf("ÃÜÂëĞŞ¸Ä³É¹¦£¡\n");
 
     return 1;
 }
 
-//ç™»é™†åä¿®æ”¹å¯†ç 
+//µÇÂ½ºóĞŞ¸ÄÃÜÂë
 int modifyPassword(AccountNode* head, Account* loginAcc)
 {
     char oldPwd[20];
     char newPwd[20];
     char confirmPwd[20];
 
-    printf("\n===== å¯†ç ä¿®æ”¹ =====\n");
-    readString(oldPwd, sizeof(oldPwd), "è¯·è¾“å…¥åŸå¯†ç ï¼š");
+    printf("\n===== ÃÜÂëĞŞ¸Ä =====\n");
+    readString(oldPwd, sizeof(oldPwd), "ÇëÊäÈëÔ­ÃÜÂë£º");
 
     if (strcmp(loginAcc->password, oldPwd) != 0) {
-        printf("åŸå¯†ç é”™è¯¯ï¼\n");
+        printf("Ô­ÃÜÂë´íÎó£¡\n");
         return 0;
     }
 
-    readString(newPwd, sizeof(newPwd), "è¯·è¾“å…¥æ–°å¯†ç ï¼š");
-    readString(confirmPwd, sizeof(confirmPwd), "è¯·ç¡®è®¤æ–°å¯†ç ï¼š");
+    readString(newPwd, sizeof(newPwd), "ÇëÊäÈëĞÂÃÜÂë£º");
+    readString(confirmPwd, sizeof(confirmPwd), "ÇëÈ·ÈÏĞÂÃÜÂë£º");
 
     if (strcmp(newPwd, confirmPwd) != 0) {
-        printf("ä¸¤æ¬¡å¯†ç ä¸ä¸€è‡´ï¼\n");
+        printf("Á½´ÎÃÜÂë²»Ò»ÖÂ£¡\n");
         return 0;
     }
 
     AccountNode* p = searchAccount(head, loginAcc->username);
     strcpy(p->data.password, newPwd);
     strcpy(loginAcc->password, newPwd);
-    printf("å¯†ç ä¿®æ”¹æˆåŠŸï¼\n");
+    printf("ÃÜÂëĞŞ¸Ä³É¹¦£¡\n");
     return 1;
 }

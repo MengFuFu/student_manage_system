@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/account.c" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/account.h" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/admin_port.c" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/admin_port.h" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/file_util.c" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/file_util.h" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/link_list.c" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/link_list.h" charset="GBK" />
     <file url="file://$PROJECT_DIR$/main.c" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/safe_stdin.c" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/safe_stdin.h" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/student_port.c" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/student_port.h" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/teacher_port.c" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/teacher_port.h" charset="GBK" />
   </component>
 </project>

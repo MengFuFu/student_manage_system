@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #include "safe_stdin.h"
 
-//鏋氫妇绫诲瀷瀹氫箟涓夌锛屾瘮鐩存帴浣跨敤鏁板瓧浼氭洿鏈夎鲸璇嗗害
+//枚举类型定义三端，比直接使用数字会更有辨识度
 typedef enum
 {
     ROLE_STUDENT = 0,

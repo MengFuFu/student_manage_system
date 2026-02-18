@@ -12,7 +12,7 @@ typedef struct Account
     char password[20];
     UserRole role;
     char classId[20];
-    char securityQuestion[50];//å¯†ç æ‰¾å›ï¼šå¯†ä¿é—®é¢˜
+    char securityQuestion[50];//ÃÜÂëÕÒ»Ø£ºÃÜ±£ÎÊÌâ
     char securityAnswer[50];
 }Account;
 

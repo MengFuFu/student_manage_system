@@ -3,68 +3,68 @@
 //
 #include "student_port.h"
 
-//æˆç»©æŸ±çŠ¶å›¾
+//³É¼¨Öù×´Í¼
 void printScoreBar(int score)
 {
-    printf("æˆç»©æŸ±çŠ¶å›¾ï¼š");
+    printf("³É¼¨Öù×´Í¼£º");
     int count = score / 10;
     for (int i = 0; i < count; i++)
     {
-        printf("â– ");
+        printf("¡ö");
     }
-    printf(" %dåˆ†\n", score);
+    printf(" %d·Ö\n", score);
 }
 
-//å­¦ç”Ÿç«¯èœå•
+//Ñ§Éú¶Ë²Ëµ¥
 void studentMainMenu(Account* loginACC, Node* stuHead)
 {
     Node* classList = filterByClass(stuHead, loginACC->classId);
 
-    printf("\n===== å­¦ç”Ÿç«¯ =====\n");
-    printf("1. æˆç»©æŸ¥è¯¢\n");
-    printf("2. æŸ¥è¯¢æœ¬ç­æˆç»©\n");
-    printf("3. æˆç»©åˆ†æ\n");
-    printf("4. è¿”å›ä¸Šä¸€çº§\n");
+    printf("\n===== Ñ§Éú¶Ë =====\n");
+    printf("1. ³É¼¨²éÑ¯\n");
+    printf("2. ²éÑ¯±¾°à³É¼¨\n");
+    printf("3. ³É¼¨·ÖÎö\n");
+    printf("4. ·µ»ØÉÏÒ»¼¶\n");
 
     while (1)
     {
-        int choice = readInt("è¯·è¾“å…¥é€‰é¡¹ï¼š");
+        int choice = readInt("ÇëÊäÈëÑ¡Ïî£º");
 
         switch (choice)
         {
         case 1:
             {
-                printf("\n===== ä¸ªäººæˆç»©æŸ¥è¯¢ =====\n");
+                printf("\n===== ¸öÈË³É¼¨²éÑ¯ =====\n");
                 Node* me = searchStudent(stuHead, loginACC->username);
                 if (me == NULL)
                 {
-                    printf("æœªæ‰¾åˆ°ä½ çš„æˆç»©ä¿¡æ¯ï¼\n");
+                    printf("Î´ÕÒµ½ÄãµÄ³É¼¨ĞÅÏ¢£¡\n");
                     break;
                 }
-                printf("å§“åï¼š%s  ç­çº§ï¼š%s\n", me->data.name, me->data.classId);
+                printf("ĞÕÃû£º%s  °à¼¶£º%s\n", me->data.name, me->data.classId);
                 for (int i = 0; i < SUBJECT; i++)
                 {
-                    printf("ç§‘ç›®%dï¼š%dåˆ†  ç­çº§æ’åï¼šç¬¬%då\n",
+                    printf("¿ÆÄ¿%d£º%d·Ö  °à¼¶ÅÅÃû£ºµÚ%dÃû\n",
                            i + 1, me->data.subjectScores[i],
                            getStudentRank(classList, me->data.id, i + 1));
                 }
-                printf("æ€»åˆ†ï¼š%dåˆ†  ç­çº§æ€»æ’åï¼šç¬¬%då\n",
+                printf("×Ü·Ö£º%d·Ö  °à¼¶×ÜÅÅÃû£ºµÚ%dÃû\n",
                        me->data.totalScore, getStudentRank(classList, me->data.id, 0));
                 printScoreBar(me->data.totalScore);
 
                 break;
             }
         case 2:
-            printf("\n===== æœ¬ç­æˆç»©è¡¨ =====\n");
+            printf("\n===== ±¾°à³É¼¨±í =====\n");
             sortStudents(classList, 0, 1);
             printList(classList);
             break;
         case 3:
             {
-                printf("\n===== ç­çº§æˆç»©åˆ†æ =====\n");
+                printf("\n===== °à¼¶³É¼¨·ÖÎö =====\n");
                 Node* p = classList->next;
                 if (p == NULL) {
-                    printf("æš‚æ— æ•°æ®ï¼\n");
+                    printf("ÔİÎŞÊı¾İ£¡\n");
                     break;
                 }
 
@@ -87,19 +87,19 @@ void studentMainMenu(Account* loginACC, Node* stuHead)
                     p = p->next;
                 }
 
-                printf("ç­çº§æ€»äººæ•°ï¼š%däºº\n", count);
-                printf("ç­çº§å¹³å‡åˆ†ï¼š%.2fåˆ†\n", (float)sum / count);
-                printf("ç­çº§æœ€é«˜åˆ†ï¼š%dåˆ†\n", max);
-                printf("ç­çº§æœ€ä½åˆ†ï¼š%dåˆ†\n", min);
+                printf("°à¼¶×ÜÈËÊı£º%dÈË\n", count);
+                printf("°à¼¶Æ½¾ù·Ö£º%.2f·Ö\n", (float)sum / count);
+                printf("°à¼¶×î¸ß·Ö£º%d·Ö\n", max);
+                printf("°à¼¶×îµÍ·Ö£º%d·Ö\n", min);
 
                 break;
             }
         case 4:
-            printf("è¿”å›ç™»å½•ç•Œé¢ä¸­...\n");
+            printf("·µ»ØµÇÂ¼½çÃæÖĞ...\n");
             destroyList(classList);
             return;
         default:
-            printf("æ— æ•ˆé€‰é¡¹ï¼\n");
+            printf("ÎŞĞ§Ñ¡Ïî£¡\n");
         }
     }
 }

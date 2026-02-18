@@ -11,7 +11,11 @@ int readInt(const char* prompt)
     while (1)
     {
         printf("%s", prompt);
-        safeInputString(input, sizeof(input));
+        int result = safeInputString(input, sizeof(input));
+
+        if (result != 0) {
+            continue;
+        }
 
         if (StrToInt(&num, input))
         {
@@ -22,8 +26,15 @@ int readInt(const char* prompt)
 
 void readString(char* buffer, int size, const char* prompt)
 {
-    printf("%s", prompt);
-    safeInputString(buffer, size);
+    while (1)
+    {
+        printf("%s", prompt);
+        int result = safeInputString(buffer, size);
+
+        if (result == 0) {
+            return;
+        }
+    }
 }
 
 int StrToInt(int* num, char* input)
@@ -34,12 +45,12 @@ int StrToInt(int* num, char* input)
 
     val = strtol(input, &end, 10);
     if (end == input || errno == ERANGE || val < INT_MIN || val > INT_MAX) {
-        printf("杈撳叆閿欒锛佽杈撳叆鍚堟硶鐨勬暣鏁癨n");
+        printf("输入错误！请输入合法的整数\n");
         return 0;
     }
     while (*end != '\0') {
         if (!isspace((unsigned char)*end)) {
-            printf("杈撳叆閿欒锛佷笉鑳藉寘鍚潪鏁板瓧瀛楃\n");
+            printf("输入错误！不能包含非数字字符\n");
             return 0;
         }
         end++;
@@ -53,7 +64,7 @@ int safeInputString(char *buffer, int size) {
     buffer[0] = '\0';
 
     if (fgets(buffer, size, stdin) == NULL) {
-        printf("璇诲彇澶辫触 / 杈撳叆涓虹┖\n");
+        printf("读取失败 / 输入为空，请重新输入！\n");
         return -2;
     }
 
@@ -70,12 +81,12 @@ int safeInputString(char *buffer, int size) {
     }
 
     if (strlen(buffer) == 0) {
-        printf("绌鸿緭鍏ワ紒\n");
+        printf("空输入！请重新输入！\n");
         return -2;
     }
 
     if (inputWasTruncated) {
-        printf("璀﹀憡锛氳緭鍏ュお闀匡紝宸茶嚜鍔ㄦ埅鏂紒\n");
+        printf("警告：输入太长，已自动截断！\n");
         return -1;
     }
 
