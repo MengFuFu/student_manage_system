@@ -3,8 +3,6 @@
 //
 #include "safe_stdin.h"
 
-// ==================== 超级简单的 API 实现 ====================
-
 int readInt(const char* prompt)
 {
     int num;
