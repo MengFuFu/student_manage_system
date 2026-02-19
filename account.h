@@ -4,7 +4,6 @@
 
 #ifndef STUDENT_MANAGE_SYSTEM_USER_H
 #define STUDENT_MANAGE_SYSTEM_USER_H
-#include <stdbool.h>
 #include "link_list.h"
 typedef struct Account
 {

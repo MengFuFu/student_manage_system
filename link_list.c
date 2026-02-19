@@ -111,7 +111,8 @@ int countStudents(Node* head)
 //打印所有学生信息
 void printList(Node* head)
 {
-    if (head == NULL) {
+    if (head == NULL)
+    {
         printf("暂无学生数据！\n");
         return;
     }
@@ -144,7 +145,8 @@ void printList(Node* head)
 //升级了排序功能，可对所有学生按照总成绩 单科成绩等排序（升序 / 降序）
 void sortStudents(Node* head, int sortBy, int order)
 {
-    if (head == NULL) {
+    if (head == NULL)
+    {
         return;
     }
 
@@ -173,7 +175,8 @@ void sortStudents(Node* head, int sortBy, int order)
             }
             else
             {
-                if (sortBy < 1 || sortBy > SUBJECT) {
+                if (sortBy < 1 || sortBy > SUBJECT)
+                {
                     break;
                 }
                 valA = p->next->data.subjectScores[sortBy - 1];
@@ -254,15 +257,19 @@ int getStudentRank(Node* head, char* studentId, int sortBy)
 }
 
 //按照班级筛选出学生
-Node* filterByClass(Node* head, char* classId) {
-    if (head == NULL || classId == NULL) {
+Node* filterByClass(Node* head, char* classId)
+{
+    if (head == NULL || classId == NULL)
+    {
         return createList();
     }
 
     Node* newHead = createList();
-    Node *p = head->next;
-    while (p != NULL) {
-        if (strcmp(p->data.classId, classId) == 0) {
+    Node* p = head->next;
+    while (p != NULL)
+    {
+        if (strcmp(p->data.classId, classId) == 0)
+        {
             insertNode(newHead, p->data);
         }
         p = p->next;
@@ -273,14 +280,16 @@ Node* filterByClass(Node* head, char* classId) {
 //销毁链表
 void destroyList(Node* head)
 {
-    if (head == NULL) {
+    if (head == NULL)
+    {
         return;
     }
 
     Node* p = head;
     Node* q = NULL;
 
-    while (p != NULL) {
+    while (p != NULL)
+    {
         q = p->next;
         free(p);
         p = q;

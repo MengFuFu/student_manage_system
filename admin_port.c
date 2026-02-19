@@ -2,6 +2,7 @@
 // Created by Megumin on 2026/2/18.
 //
 #include "admin_port.h"
+
 void adminMainMenu(AccountNode* accHead, Node* stuHead)
 {
     printf("\n===== 管理员端 =====\n");
@@ -47,34 +48,40 @@ void adminMainMenu(AccountNode* accHead, Node* stuHead)
                 {
                     char username[20];
                     readString(username, sizeof(username), "请输入要查找的用户名：");
-                    AccountNode *p = searchAccount(accHead, username);
-                    if (p != NULL) {
+                    AccountNode* p = searchAccount(accHead, username);
+                    if (p != NULL)
+                    {
                         printf("找到账号：%s, 角色：%d, 班级：%s\n",
-                            p->data.username, p->data.role, p->data.classId);
-                    } else {
+                               p->data.username, p->data.role, p->data.classId);
+                    }
+                    else
+                    {
                         printf("未找到！\n");
                     }
                 }
                 break;
             }
-        case 2: {
+        case 2:
+            {
                 char filename[50];
                 readString(filename, sizeof(filename), "请输入导入文件名：");
                 batchImportAccounts(accHead, filename);
                 break;
-        }
-        case 3: {
+            }
+        case 3:
+            {
                 char filename[50];
                 readString(filename, sizeof(filename), "请输入导出文件名：");
                 batchExportAccounts(accHead, filename);
                 break;
-        }
+            }
         case 4:
             {
                 char teacherId[20];
                 readString(teacherId, sizeof(teacherId), "请输入要登录的教师工号：");
                 AccountNode* p = searchAccount(accHead, teacherId);
-                if (p == NULL || p->data.role != ROLE_TEACHER) {
+                if (p == NULL || p->data.role != ROLE_TEACHER)
+                {
                     printf("教师账号不存在！\n");
                     break;
                 }

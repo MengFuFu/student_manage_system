@@ -9,7 +9,7 @@ int main(void)
     AccountNode* accHead = creatAccountList();
     loadAccountsFromFile(accHead, "accounts.dat");
 
-    //管理员账号最特殊，选择内置
+    //管理员账号选择内置
     if (searchAccount(accHead, "admin") == NULL)
     {
         Account adminAcc = {

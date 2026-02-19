@@ -1,8 +1,6 @@
 //
 // Created by Megumin on 2026/2/16.
 //
-
-
 #include "file_util.h"
 
 //学生数据
@@ -51,7 +49,7 @@ void loadStudentsFromFile(Node* head, const char* filename)
 
 //账号数据文件操作
 //保存数据
-void saveAccountsToFile(AccountNode *head, const char *filename)
+void saveAccountsToFile(AccountNode* head, const char* filename)
 {
     FILE* fp = fopen(filename, "wb");
     if (fp == NULL)
@@ -72,15 +70,17 @@ void saveAccountsToFile(AccountNode *head, const char *filename)
 }
 
 //加载数据
-void loadAccountsFromFile(AccountNode *head, const char *filename)
+void loadAccountsFromFile(AccountNode* head, const char* filename)
 {
-    FILE *fp = fopen(filename, "rb");
-    if (fp == NULL) {
+    FILE* fp = fopen(filename, "rb");
+    if (fp == NULL)
+    {
         return;
     }
 
     Account acc;
-    while (fread(&acc, sizeof(Account), 1, fp) == 1) {
+    while (fread(&acc, sizeof(Account), 1, fp) == 1)
+    {
         addAccount(head, acc);
     }
 

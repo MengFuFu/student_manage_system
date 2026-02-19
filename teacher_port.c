@@ -5,8 +5,6 @@
 
 void teacherMainMenu(Account* loginAcc, Node* stuHead)
 {
-    int choice;
-    char choiceNum[10];
 
     printf("\n===== 教师端 =====\n");
     printf("1. 增删改查学生信息\n");
@@ -16,17 +14,15 @@ void teacherMainMenu(Account* loginAcc, Node* stuHead)
 
     while (1)
     {
-        choice = readInt("请输入选项：");
+        int choice = readInt("请输入选项：");
 
         switch (choice)
         {
         case 1:
             {
-                int newChoice;
-                char newChoiceNum[10];
                 printf("\n===== 学生信息管理 =====\n");
                 printf("1. 新增学生 2. 修改学生 3. 删除学生 4. 查找学生\n");
-                newChoice = readInt("请输入选项：");
+                int newChoice = readInt("请输入选项：");
 
                 if (newChoice == 1)
                 {
