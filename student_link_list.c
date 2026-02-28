@@ -3,13 +3,13 @@
 //
 
 /*实现链表的基本功能-增删改查-*/
-#include "link_list.h"
+#include "student_link_list.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-//链表初始化---带头节点
+//链表初始化（带头节点）
 Node* createList()
 {
     Node* head = (Node*)malloc(sizeof(Node));
@@ -76,7 +76,7 @@ bool deleteNode(Node* head, char* id)
     return false;
 }
 
-//查找学生节点
+//查找学生节点，此处采用返回节点地址的方式
 Node* searchStudent(Node* head, char* id)
 {
     Node* p = head;
@@ -145,33 +145,27 @@ void printList(Node* head)
 //升级了排序功能，可对所有学生按照总成绩 单科成绩等排序（升序 / 降序）
 void sortStudents(Node* head, int sortBy, int order)
 {
-    if (head == NULL)
+    if (head == NULL || head->next == NULL)
     {
         return;
     }
 
-    if (head->next == NULL || head->next->next == NULL)
-    {
-        return;
-    }
+    int hasSwapped;
 
-    int swapped;
-    Node* p;
-    Node* q = NULL;
     do
     {
-        swapped = 0;
-        p = head;
+        hasSwapped = 0;
+        Node* cur = head;
 
-        while (p->next != q && p->next != NULL && p->next->next != NULL)
+        while (cur->next != NULL)
         {
-            int valA;
-            int valB;
+            int scoreA;
+            int scoreB;
 
             if (sortBy == 0)
             {
-                valA = p->next->data.totalScore;
-                valB = p->next->next->data.totalScore;
+                scoreA = cur->data.totalScore;
+                scoreB = cur->next->data.totalScore;
             }
             else
             {
@@ -179,31 +173,33 @@ void sortStudents(Node* head, int sortBy, int order)
                 {
                     break;
                 }
-                valA = p->next->data.subjectScores[sortBy - 1];
-                valB = p->next->next->data.subjectScores[sortBy - 1];
+
+                scoreA = cur->data.subjectScores[sortBy - 1];
+                scoreB = cur->next->data.subjectScores[sortBy - 1];
             }
 
             int needSwap = 0;
-            if (order == 0 && valA > valB)
+            if (order == 0 && scoreA > scoreB)
             {
                 needSwap = 1;
             }
-            if (order == 1 && valA < valB)
+            if (order == 1 && scoreA < scoreB)
             {
                 needSwap = 1;
             }
+
             if (needSwap)
             {
-                Student temp = p->next->data;
-                p->next->data = p->next->next->data;
-                p->next->next->data = temp;
-                swapped = 1;
+                Student temp = cur->data;
+                cur->data = cur->next->data;
+                cur->next->data = temp;
+                hasSwapped = 1;
             }
-            p = p->next;
+
+            cur = cur->next;
         }
-        q = p->next;
-    }
-    while (swapped);
+
+    } while (hasSwapped);
 }
 
 
@@ -211,10 +207,12 @@ void sortStudents(Node* head, int sortBy, int order)
 int getStudentRank(Node* head, char* studentId, int sortBy)
 {
     Node* targetStudent = searchStudent(head, studentId);
+
     if (targetStudent == NULL)
     {
         return -1;
     }
+
     char targetClassId[20];
     strcpy(targetClassId, targetStudent->data.classId);
 

@@ -7,11 +7,11 @@
     <file url="file://$PROJECT_DIR$/admin_port.h" charset="GBK" />
     <file url="file://$PROJECT_DIR$/file_util.c" charset="GBK" />
     <file url="file://$PROJECT_DIR$/file_util.h" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/link_list.c" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/link_list.h" charset="GBK" />
     <file url="file://$PROJECT_DIR$/main.c" charset="GBK" />
     <file url="file://$PROJECT_DIR$/safe_stdin.c" charset="GBK" />
     <file url="file://$PROJECT_DIR$/safe_stdin.h" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/student_link_list.c" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/student_link_list.h" charset="GBK" />
     <file url="file://$PROJECT_DIR$/student_port.c" charset="GBK" />
     <file url="file://$PROJECT_DIR$/student_port.h" charset="GBK" />
     <file url="file://$PROJECT_DIR$/teacher_port.c" charset="GBK" />

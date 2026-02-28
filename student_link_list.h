@@ -8,14 +8,6 @@
 #include <stdbool.h>
 #include "safe_stdin.h"
 
-//枚举类型定义三端，比直接使用数字会更有辨识度
-typedef enum
-{
-    ROLE_STUDENT = 0,
-    ROLE_TEACHER = 1,
-    ROLE_ADMIN = 2
-}UserRole;
-
 typedef struct Student{
     char id[20];
     char name[50];
