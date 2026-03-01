@@ -46,7 +46,7 @@ int StrToInt(int* num, char* input)
 
     if (end == input || errno == ERANGE || val < INT_MIN || val > INT_MAX)
     {
-        printf("输入错误！请输入合法整数！\n");
+        printf("杈撳叆閿欒锛佽杈撳叆鍚堟硶鏁存暟锛乗n");
         return 0;
     }
 
@@ -54,7 +54,7 @@ int StrToInt(int* num, char* input)
     {
         if (!isspace((unsigned char)*end))
         {
-            printf("输入错误！不能包含非数字字符！\n");
+            printf("杈撳叆閿欒锛佷笉鑳藉寘鍚潪鏁板瓧瀛楃锛乗n");
             return 0;
         }
         end++;
@@ -68,7 +68,7 @@ int safeInputString(char* buffer, int size)
 {
     if (fgets(buffer, size, stdin) == NULL)
     {
-        printf("读取失败，请重试！\n");
+        printf("璇诲彇澶辫触锛岃閲嶈瘯锛乗n");
         return -2;
     }
 
@@ -83,12 +83,12 @@ int safeInputString(char* buffer, int size)
         while ((c = getchar()) != '\n' && c != EOF)
         {
         }
-        printf("输入过长，已自动截断！\n");
+        printf("杈撳叆杩囬暱锛屽凡鑷姩鎴柇锛乗n");
     }
 
     if (strlen(buffer) == 0)
     {
-        printf("输入不能为空！请重新输入！\n");
+        printf("杈撳叆涓嶈兘涓虹┖锛佽閲嶆柊杈撳叆锛乗n");
         return -2;
     }
 
